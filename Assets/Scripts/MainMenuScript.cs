@@ -1,10 +1,11 @@
 ﻿using UnityEngine;
 using System.Collections;
+using UnityEngine.SceneManagement;
 
 public class MainMenuScript : MonoBehaviour {
 
-	public void startGame()
+	public void StartGame()
     {
-        Application.LoadLevel(1);
+        SceneManager.LoadScene("Level1");
     }
 }
