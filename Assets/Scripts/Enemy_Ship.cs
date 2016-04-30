@@ -19,12 +19,12 @@ public class Enemy_Ship : MonoBehaviour
     void FixedUpdate()
     {
         rb = GetComponent<Rigidbody>();
-        rb.velocity = new Vector3(-1, 0, 0) * moveSpeed;
+        rb.velocity = new Vector3(0, 0, -1) * moveSpeed;
     }
 
     void Update()
     {
         startTime += Time.deltaTime;
-        transform.rotation = Quaternion.Lerp(start, end, (Mathf.Sin(startTime * swingSpeed + (swingAngle * Mathf.PI / 180)) + 1.0f) / 2) * Quaternion.AngleAxis(270, new Vector3(1, 0, 0));
+        transform.rotation = Quaternion.AngleAxis(90, new Vector3(0, 1, 0)) * Quaternion.Lerp(start, end, (Mathf.Sin(startTime * swingSpeed + (swingAngle * Mathf.PI / 180)) + 1.0f) / 2) * Quaternion.AngleAxis(270, new Vector3(1, 0, 0));
     }
 }
