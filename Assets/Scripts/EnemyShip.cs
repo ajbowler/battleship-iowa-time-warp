@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class Enemy_Ship : MonoBehaviour
+public class EnemyShip : MonoBehaviour
 {
     private Rigidbody rb;
     public float moveSpeed;

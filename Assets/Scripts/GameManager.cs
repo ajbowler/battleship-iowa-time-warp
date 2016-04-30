@@ -20,7 +20,7 @@ public class GameManager : MonoBehaviour {
         Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
         if (Physics.Raycast(ray, out hit, 100))
         {
-            Enemy_Ship ship = hit.transform.gameObject.GetComponent<Enemy_Ship>();
+            EnemyShip ship = hit.transform.gameObject.GetComponent<EnemyShip>();
             if (ship != null)
                 ship.GetComponentInChildren<MeshRenderer>().material = shipMaterials[2];
         }
