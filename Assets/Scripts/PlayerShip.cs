@@ -34,6 +34,7 @@ public class PlayerShip : MonoBehaviour {
         }
 
         moveTo.z += forwardSpeed;
+        moveTo.y = -1.66f; // water level
 
         transform.position = Vector3.Lerp(transform.position, moveTo, Time.deltaTime);
         transform.rotation = Quaternion.Lerp(transform.rotation, rotateTo, Time.deltaTime);
