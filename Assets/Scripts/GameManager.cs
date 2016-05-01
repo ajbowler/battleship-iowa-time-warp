@@ -58,5 +58,9 @@ public class GameManager : MonoBehaviour {
     void UpdateHealth()
     {
         healthBar.fillAmount = playerShip.health / 100.0f;
+        if (playerShip.health <= 0)
+        {
+            Application.LoadLevel(2);
+        }
     }
 }
