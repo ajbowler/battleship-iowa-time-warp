@@ -3,7 +3,6 @@ using System.Collections;
 
 public class EnemyShip : AbstractEnemy
 {
-
     public float swingSpeed;
     public float swingAngle;
     protected float startTime;

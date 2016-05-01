@@ -2,7 +2,7 @@
 using System.Collections;
 
 public class BillboardHit : MonoBehaviour {
-    public Camera camera;
+    public Camera cam;
     public float fadeSpeed;
     public float floatSpeed;
     public float waitSeconds;
@@ -14,8 +14,7 @@ public class BillboardHit : MonoBehaviour {
 
     void Awake()
     {
-        if (!camera)
-            camera = Camera.main;
+        if (!cam) cam = Camera.main;
         theRenderer = GetComponent<Renderer>();
         theRenderer.material.SetTexture("_MainTex", tex);
         floating = 0;
@@ -23,7 +22,7 @@ public class BillboardHit : MonoBehaviour {
 
     void Update()
     {
-        transform.LookAt(transform.position + camera.transform.rotation * Vector3.forward, camera.transform.rotation * Vector3.up);
+        transform.LookAt(transform.position + cam.transform.rotation * Vector3.forward, cam.transform.rotation * Vector3.up);
         transform.Translate(new Vector3(0,floating,0));
         StartCoroutine(Fade());
         if (theRenderer.material.GetColor("_TintColor").a <= 0)
@@ -38,5 +37,4 @@ public class BillboardHit : MonoBehaviour {
         theRenderer.material.SetColor("_TintColor", color);
         floating = floatSpeed;
     }
-
 }

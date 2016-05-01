@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour {
     public Material[] shipMaterials;
@@ -13,14 +14,8 @@ public class GameManager : MonoBehaviour {
 
     void Awake()
     {
-        if(instance == null)
-        {
-            instance = this;
-        }
-        else if(instance != this)
-        {
-            Destroy(gameObject);
-        }
+        if(instance == null) instance = this;
+        else if(instance != this) Destroy(gameObject);
     }
 
     void Start()
@@ -38,8 +33,7 @@ public class GameManager : MonoBehaviour {
 
         if (Input.GetMouseButtonDown(0))
         {
-            if (reloadTimer > 0) Debug.Log("Reloading!");
-            else
+            if (reloadTimer <= 0)
             {
                 RaycastHit hit;
                 Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
@@ -60,8 +54,6 @@ public class GameManager : MonoBehaviour {
     {
         healthBar.fillAmount = playerShip.health / 100.0f;
         if (playerShip.health <= 0)
-        {
-            Application.LoadLevel(2);
-        }
+            SceneManager.LoadScene("GameOver");
     }
 }

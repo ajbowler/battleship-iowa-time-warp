@@ -1,13 +1,12 @@
 ﻿using UnityEngine;
 using System.Collections;
+using UnityEngine.SceneManagement;
 
 public class WinScript : MonoBehaviour {
 
 	void OnTriggerEnter(Collider collider)
     {
         if (collider.gameObject.name.Equals("Player Ship"))
-        {
-            Application.LoadLevel(3);
-        }
+            SceneManager.LoadScene("WinScreen");
     }
 }

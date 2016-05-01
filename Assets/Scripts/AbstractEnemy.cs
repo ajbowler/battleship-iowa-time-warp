@@ -66,12 +66,8 @@ public abstract class AbstractEnemy : MonoBehaviour
         Instantiate(explosion, transform.position, Quaternion.identity);
         Rigidbody body = GetComponent<Rigidbody>();
         body.useGravity = true;
-        print("Gravity");
         deathNoise.Play();
-        while (transform.position.y > -50f) {
-            yield return null;
-        }
-        print("Destroy");
+        while (transform.position.y > -50f) yield return null;
         Destroy(gameObject);
     }
 }

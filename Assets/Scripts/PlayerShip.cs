@@ -45,8 +45,7 @@ public class PlayerShip : MonoBehaviour {
 
     void OnTriggerEnter(Collider other)
     {
-        if (other.tag == "Enemy")
-            health = 0;
+        if (other.tag == "Enemy") health = 0;
     }
 
     public void FireOnEnemy(AbstractEnemy enemy)
@@ -54,9 +53,7 @@ public class PlayerShip : MonoBehaviour {
         GetComponents<AudioSource>()[0].Play();
         Vector3 distance = transform.position - enemy.transform.position;
         float distanceMagnitude = Mathf.Abs(distance.magnitude);
-
         int damageDealt = CalculateDamage(distanceMagnitude);
-
         enemy.TakeDamage(damageDealt);
     }
 
