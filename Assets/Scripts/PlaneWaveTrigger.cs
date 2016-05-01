@@ -19,8 +19,8 @@ public class PlaneWaveTrigger : MonoBehaviour {
     {
         if (collider.gameObject.name.Equals("Player Ship"))
         {
-            Airplane[] enemyPlanes = EnemyPlaneWave.GetComponentsInChildren<Airplane>();
-            foreach (Airplane plane in enemyPlanes)
+            EnemyAirplane[] enemyPlanes = EnemyPlaneWave.GetComponentsInChildren<EnemyAirplane>();
+            foreach (EnemyAirplane plane in enemyPlanes)
             {
                 plane.planeSpeed = -1;
             }
