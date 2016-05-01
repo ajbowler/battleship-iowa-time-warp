@@ -7,6 +7,8 @@ public class EnemyShip : MonoBehaviour
     public float swingAngle;
     public float health;
     public float baseDamage;
+    public BillboardHit damageBillboard;
+    public Texture[] hitMarkers;
     public float targetRadius;
     public GameObject target;
 
@@ -46,5 +48,14 @@ public class EnemyShip : MonoBehaviour
             GameManager.instanace.playerShip.health -= 25;
             reloadTimer = 500;
         }
+    }
+
+    public void TakeDamage(int damage)
+    {
+        health -= damage;
+        Vector3 markerPosition = transform.position;
+        markerPosition.y += 4.0f;
+        damageBillboard.tex = hitMarkers[damage];
+        Instantiate(damageBillboard, markerPosition, Quaternion.identity);
     }
 }

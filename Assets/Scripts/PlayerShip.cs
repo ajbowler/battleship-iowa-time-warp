@@ -9,6 +9,7 @@ public class PlayerShip : MonoBehaviour {
     public float baseDamage;
     public float health;
     public float damageMultiplier;
+    public BillboardHit billboardHit;
 
     private Vector3 moveTo;
     private Quaternion rotateTo;
@@ -50,9 +51,8 @@ public class PlayerShip : MonoBehaviour {
         float distanceMagnitude = Mathf.Abs(distance.magnitude);
 
         int damageDealt = CalculateDamage(distanceMagnitude);
-        if (damageDealt > 0) Debug.Log(damageDealt);
-        else Debug.Log("Miss!");
 
+        enemyShip.TakeDamage(damageDealt);
         enemyShip.health -= damageDealt;
         if (enemyShip.health < 0)
         {
