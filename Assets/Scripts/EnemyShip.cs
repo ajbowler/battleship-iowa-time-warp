@@ -7,6 +7,8 @@ public class EnemyShip : MonoBehaviour
     public float swingAngle;
     public float health;
     public float baseDamage;
+    public BillboardHit damageBillboard;
+    public Texture[] hitMarkers;
 
     private Rigidbody rb;
     private float startTime;
@@ -25,5 +27,14 @@ public class EnemyShip : MonoBehaviour
         transform.rotation = Quaternion.AngleAxis(90, new Vector3(0, 1, 0)) 
             * Quaternion.Lerp(start, end, (Mathf.Sin(startTime * swingSpeed + (swingAngle * Mathf.PI / 180)) + 1.0f) / 2) 
             * baseRotation;
+    }
+
+    public void TakeDamage(int damage)
+    {
+        health -= damage;
+        Vector3 markerPosition = transform.position;
+        markerPosition.y += 4.0f;
+        damageBillboard.tex = hitMarkers[damage];
+        Instantiate(damageBillboard, markerPosition, Quaternion.identity);
     }
 }
