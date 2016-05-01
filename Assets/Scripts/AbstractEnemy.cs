@@ -43,6 +43,10 @@ public abstract class AbstractEnemy : MonoBehaviour
     {
         GetComponents<AudioSource>()[1].Play();
         GameManager.instance.playerShip.health -= baseDamage;
+        damageBillboard.tex = hitMarkers[(int)baseDamage];
+        Vector3 markerPosition = GameManager.instance.playerShip.transform.position;
+        markerPosition.y += 4.0f;
+        Instantiate(damageBillboard, markerPosition, Quaternion.identity);
         reloadTimer = reloadTime;
     }
 
