@@ -1,4 +1,4 @@
-﻿using UnityEngine;
+using UnityEngine;
 using System.Collections;
 
 public abstract class AbstractEnemy : MonoBehaviour
@@ -63,6 +63,7 @@ public abstract class AbstractEnemy : MonoBehaviour
 
     private IEnumerator Die()
     {
+        ScoreManager.score++;
         Instantiate(explosion, transform.position, Quaternion.identity);
         Rigidbody body = GetComponent<Rigidbody>();
         body.useGravity = true;
