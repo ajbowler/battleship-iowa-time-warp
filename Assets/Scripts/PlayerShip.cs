@@ -12,6 +12,7 @@ public class PlayerShip : MonoBehaviour {
 
     public BillboardHit damageBillboard;
     public Texture[] hitMarkers;
+    public Detonator gunFire;
 
     private Vector3 moveTo;
     private Quaternion rotateTo;
@@ -53,6 +54,7 @@ public class PlayerShip : MonoBehaviour {
 
     public void FireOnEnemy(AbstractEnemy enemy)
     {
+        DisplayGunFire();
         GetComponents<AudioSource>()[0].Play();
         Vector3 distance = transform.position - enemy.transform.position;
         float distanceMagnitude = Mathf.Abs(distance.magnitude);
@@ -69,5 +71,12 @@ public class PlayerShip : MonoBehaviour {
         float damage = baseDamage * Random.value * damageMultiplier / distance;
         if (damage > baseDamage) damage = baseDamage;
         return Mathf.FloorToInt(damage);
+    }
+
+    private void DisplayGunFire()
+    {
+        Vector3 position = transform.position;
+        position += (4.0f * transform.forward) + (1.0f * transform.up);
+        Instantiate(gunFire, position, Quaternion.identity);
     }
 }
