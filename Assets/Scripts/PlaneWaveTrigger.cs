@@ -5,6 +5,8 @@ public class PlaneWaveTrigger : MonoBehaviour {
 
     public GameObject EnemyPlaneWave;
 
+    public float newPlaneSpeed;
+
 	// Use this for initialization
 	void Start () {
 	
@@ -22,7 +24,7 @@ public class PlaneWaveTrigger : MonoBehaviour {
             EnemyAirplane[] enemyPlanes = EnemyPlaneWave.GetComponentsInChildren<EnemyAirplane>();
             foreach (EnemyAirplane plane in enemyPlanes)
             {
-                plane.planeSpeed = -1;
+                plane.planeSpeed = newPlaneSpeed;
             }
         }
     }
