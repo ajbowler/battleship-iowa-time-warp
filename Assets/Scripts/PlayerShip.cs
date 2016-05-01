@@ -8,6 +8,8 @@ public class PlayerShip : MonoBehaviour {
     public float turnSpeed;
     public float baseDamage;
     public float health;
+    public float damageMultiplier;
+    public BillboardHit billboardHit;
 
     private Vector3 moveTo;
     private Quaternion rotateTo;
@@ -41,4 +43,32 @@ public class PlayerShip : MonoBehaviour {
         transform.position = Vector3.Lerp(transform.position, moveTo, Time.deltaTime);
         transform.rotation = Quaternion.Lerp(transform.rotation, rotateTo, Time.deltaTime);
 	}
+
+    public void FireOnEnemyShip(EnemyShip enemyShip)
+    {
+        GetComponents<AudioSource>()[0].Play();
+        Vector3 distance = transform.position - enemyShip.transform.position;
+        float distanceMagnitude = Mathf.Abs(distance.magnitude);
+
+        int damageDealt = CalculateDamage(distanceMagnitude);
+
+        enemyShip.TakeDamage(damageDealt);
+        enemyShip.health -= damageDealt;
+        if (enemyShip.health < 0)
+        {
+            GetComponents<AudioSource>()[1].Play();
+            Destroy(enemyShip.gameObject);
+        }
+    }
+
+    /// <summary>
+    /// Calculates damage dealt based on distance between player and enemy. 
+    /// The closer the distance, the higher the chance to hit and the higher the damage.
+    /// </summary>
+    int CalculateDamage(float distance)
+    {
+        float damage = baseDamage * Random.value * damageMultiplier / distance;
+        if (damage > baseDamage) damage = baseDamage;
+        return Mathf.FloorToInt(damage);
+    }
 }

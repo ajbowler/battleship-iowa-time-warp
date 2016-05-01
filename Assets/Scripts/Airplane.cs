@@ -7,6 +7,8 @@ public class Airplane : MonoBehaviour {
     public float targetRadius;
     public GameObject target;
 
+    private float reloadTimer;
+
 	// Use this for initialization
 	void Start () {
         //Transform camTransform = Camera.main.transform;
@@ -18,7 +20,13 @@ public class Airplane : MonoBehaviour {
 	// Update is called once per frame
 	void Update () {
         transform.Translate(gameObject.transform.forward * planeSpeed);
-        FireWeapon();
+
+        reloadTimer -= (Time.deltaTime * 1000);
+        if (reloadTimer < 0) reloadTimer = 0;
+        if(reloadTimer <= 0)
+        {
+            FireWeapon();
+        }
 	}
 
     private void FireWeapon()
@@ -28,6 +36,8 @@ public class Airplane : MonoBehaviour {
         if (difference.magnitude < targetRadius)
         {
             Debug.Log("FIRIN' WEAPON!");
+            GameManager.instanace.playerShip.health -= 25;
+            reloadTimer = 500;
         }
     }
 }
