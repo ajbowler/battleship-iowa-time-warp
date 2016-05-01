@@ -52,12 +52,6 @@ public class PlayerShip : MonoBehaviour {
         int damageDealt = CalculateDamage(distanceMagnitude);
 
         enemy.TakeDamage(damageDealt);
-        enemy.health -= damageDealt;
-        if (enemy.health < 0)
-        {
-            GetComponents<AudioSource>()[1].Play();
-            Destroy(enemy.gameObject);
-        }
     }
 
     /// <summary>

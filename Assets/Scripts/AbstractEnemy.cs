@@ -16,9 +16,12 @@ public abstract class AbstractEnemy : MonoBehaviour
     protected Rigidbody body;
     protected float reloadTimer;
 
+    protected AudioSource deathNoise;
+
     protected virtual void Start() {
         targetName = "Player Ship";
         reloadTimer = 0;
+        deathNoise = GetComponents<AudioSource>()[0];
     }
 
     protected virtual void Update()
@@ -47,5 +50,23 @@ public abstract class AbstractEnemy : MonoBehaviour
         markerPosition.y += 4.0f;
         damageBillboard.tex = hitMarkers[damage];
         Instantiate(damageBillboard, markerPosition, Quaternion.identity);
+        if (health < 0)
+        {
+            print("DIE!!!");
+            StartCoroutine(Die());
+        }
+    }
+
+    private IEnumerator Die()
+    {
+        Rigidbody body = GetComponent<Rigidbody>();
+        body.useGravity = true;
+        print("Gravity");
+        deathNoise.Play();
+        while (transform.position.y > -50f) {
+            yield return null;
+        }
+        print("Destroy");
+        Destroy(gameObject);
     }
 }
