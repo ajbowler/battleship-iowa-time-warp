@@ -9,7 +9,6 @@ public class PlayerShip : MonoBehaviour {
     public float baseDamage;
     public float health;
     public float damageMultiplier;
-    public BillboardHit billboardHit;
 
     private Vector3 moveTo;
     private Quaternion rotateTo;
