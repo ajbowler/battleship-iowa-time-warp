@@ -43,6 +43,12 @@ public class PlayerShip : MonoBehaviour {
         transform.rotation = Quaternion.Lerp(transform.rotation, rotateTo, Time.deltaTime);
 	}
 
+    void OnTriggerEnter(Collider other)
+    {
+        if (other.tag == "Enemy")
+            health = 0;
+    }
+
     public void FireOnEnemy(AbstractEnemy enemy)
     {
         GetComponents<AudioSource>()[0].Play();
