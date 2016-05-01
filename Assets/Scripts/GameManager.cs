@@ -6,12 +6,26 @@ public class GameManager : MonoBehaviour {
     public Material[] shipMaterials;
     public PlayerShip playerShip;
     public Image healthBar;
+    public float damageMultiplier;
+    public static GameManager instanace = null;
 
     private float reloadTimer;
+
+    void Awake()
+    {
+        if(instanace == null)
+        {
+            instanace = this;
+        }else if(instanace != this)
+        {
+            Destroy(gameObject);
+        }
+    }
 
     void Start()
     {
         reloadTimer = 0;
+        playerShip.health = 100;
     }
 
     void Update()
@@ -34,7 +48,7 @@ public class GameManager : MonoBehaviour {
                     if (enemyShip != null)
                     {
                         playerShip.FireOnEnemyShip(enemyShip);
-                        reloadTimer = 300;
+                        reloadTimer = 300.0f;
                     }
                 }
             }
