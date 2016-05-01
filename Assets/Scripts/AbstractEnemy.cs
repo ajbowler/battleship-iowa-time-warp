@@ -56,7 +56,6 @@ public abstract class AbstractEnemy : MonoBehaviour
         if (health < 0)
         {
             isDead = true;
-            print("DIE!!!");
             StartCoroutine(Die());
         }
     }
