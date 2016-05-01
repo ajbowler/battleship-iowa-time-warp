@@ -9,10 +9,10 @@ public class Airplane : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
-        Transform camTransform = Camera.main.transform;
-        Vector3 camForward = camTransform.forward;
-        int xPos = Random.Range(-15, 16);
-        transform.position = new Vector3(transform.position.x + xPos, transform.position.y, transform.position.z);
+        //Transform camTransform = Camera.main.transform;
+        //Vector3 camForward = camTransform.forward;
+        //int xPos = Random.Range(-45, 46);
+        transform.position = new Vector3(transform.position.x, transform.position.y, transform.position.z);
 	}
 	
 	// Update is called once per frame
@@ -24,7 +24,7 @@ public class Airplane : MonoBehaviour {
     private void FireWeapon()
     {
         Vector3 difference = transform.position - target.transform.position;
-        Debug.Log(difference);
+        //Debug.Log(difference.magnitude);
         if (difference.magnitude < targetRadius)
         {
             Debug.Log("FIRIN' WEAPON!");

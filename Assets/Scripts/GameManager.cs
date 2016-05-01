@@ -4,30 +4,45 @@ using UnityEngine.UI;
 
 public class GameManager : MonoBehaviour {
     public Material[] shipMaterials;
-    //public PlayerShip playerShip;
-    public float playerHealth;
+    public PlayerShip playerShip;
     public Image healthBar;
+
+    private float reloadTimer;
+
+    void Start()
+    {
+        reloadTimer = 0;
+    }
 
     void Update()
     {
-        UpdateHealth();
-        UpdateEnemyShipDamage();
-    }
+        reloadTimer -= (Time.deltaTime * 1000);
+        if (reloadTimer < 0) reloadTimer = 0;
 
-    void UpdateEnemyShipDamage()
-    {
-        RaycastHit hit;
-        Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
-        if (Physics.Raycast(ray, out hit, 100))
+        UpdateHealth();
+
+        if (Input.GetMouseButtonDown(0))
         {
-            EnemyShip ship = hit.transform.gameObject.GetComponent<EnemyShip>();
-            if (ship != null)
-                ship.GetComponentInChildren<MeshRenderer>().material = shipMaterials[2];
+            if (reloadTimer > 0) Debug.Log("Reloading!");
+            else
+            {
+                RaycastHit hit;
+                Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+                if (Physics.Raycast(ray, out hit, 1000))
+                {
+                    EnemyShip enemyShip = hit.transform.gameObject.GetComponent<EnemyShip>();
+                    if (enemyShip != null)
+                    {
+                        playerShip.FireOnEnemyShip(enemyShip);
+                        reloadTimer = 300;
+                    }
+                }
+            }
         }
     }
 
     void UpdateHealth()
     {
-        healthBar.fillAmount = playerHealth;
+        healthBar.fillAmount = playerShip.health / 100.0f;
     }
 }
