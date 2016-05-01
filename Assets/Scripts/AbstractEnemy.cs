@@ -39,6 +39,7 @@ public abstract class AbstractEnemy : MonoBehaviour
 
     private void FireWeapon()
     {
+        GetComponents<AudioSource>()[1].Play();
         GameManager.instance.playerShip.health -= baseDamage;
         reloadTimer = reloadTime;
     }
