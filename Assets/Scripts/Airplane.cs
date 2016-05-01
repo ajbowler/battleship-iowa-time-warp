@@ -9,8 +9,6 @@ public class Airplane : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
-        Transform camTransform = Camera.main.transform;
-        Vector3 camForward = camTransform.forward;
         int xPos = Random.Range(-15, 16);
         transform.position = new Vector3(transform.position.x + xPos, transform.position.y, transform.position.z);
 	}

@@ -4,30 +4,57 @@ using UnityEngine.UI;
 
 public class GameManager : MonoBehaviour {
     public Material[] shipMaterials;
-    //public PlayerShip playerShip;
-    public float playerHealth;
+    public PlayerShip playerShip;
     public Image healthBar;
+    public float damageMultiplier;
 
     void Update()
     {
         UpdateHealth();
-        UpdateEnemyShipDamage();
-    }
 
-    void UpdateEnemyShipDamage()
-    {
-        RaycastHit hit;
-        Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
-        if (Physics.Raycast(ray, out hit, 100))
+        if (Input.GetMouseButtonDown(0))
         {
-            EnemyShip ship = hit.transform.gameObject.GetComponent<EnemyShip>();
-            if (ship != null)
-                ship.GetComponentInChildren<MeshRenderer>().material = shipMaterials[2];
+            RaycastHit hit;
+            Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+            if (Physics.Raycast(ray, out hit, 1000))
+            {
+                EnemyShip enemyShip = hit.transform.gameObject.GetComponent<EnemyShip>();
+                if (enemyShip != null)
+                    FireOnEnemyShip(enemyShip);
+            }
+
+
         }
     }
 
     void UpdateHealth()
     {
-        healthBar.fillAmount = playerHealth;
+        healthBar.fillAmount = playerShip.health / 100.0f;
+    }
+
+    void FireOnEnemyShip(EnemyShip enemyShip)
+    {
+        Vector3 distance = playerShip.transform.position - enemyShip.transform.position;
+        float distanceMagnitude = Mathf.Abs(distance.magnitude);
+
+        int damageDealt = CalculateDamage(distanceMagnitude);
+        if (damageDealt > 0) Debug.Log(damageDealt);
+        else Debug.Log("Miss!");
+
+        enemyShip.health -= damageDealt;
+        if (enemyShip.health < 0)
+            Destroy(enemyShip.gameObject);
+    }
+    
+    /// <summary>
+    /// Calculates damage dealt based on distance between player and enemy. 
+    /// The closer the distance, the higher the chance to hit and the higher the damage.
+    /// </summary>
+    int CalculateDamage(float distance)
+    {
+        float damage = playerShip.baseDamage * Random.value * damageMultiplier / distance;
+        if (damage > playerShip.baseDamage) damage = playerShip.baseDamage;
+
+        return Mathf.FloorToInt(damage);
     }
 }
