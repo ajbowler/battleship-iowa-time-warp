@@ -15,6 +15,7 @@ public abstract class AbstractEnemy : MonoBehaviour
     protected string targetName;
     protected Rigidbody body;
     protected float reloadTimer;
+    protected bool isDead;
 
     protected AudioSource deathNoise;
 
@@ -22,13 +23,14 @@ public abstract class AbstractEnemy : MonoBehaviour
         targetName = "Player Ship";
         reloadTimer = 0;
         deathNoise = GetComponents<AudioSource>()[0];
+        isDead = false;
     }
 
     protected virtual void Update()
     {
         reloadTimer -= (Time.deltaTime);
         if (reloadTimer < 0) reloadTimer = 0;
-        if (reloadTimer <= 0)
+        if (reloadTimer <= 0 && !isDead)
         {
             GameObject target = GameObject.Find(targetName);
             Vector3 diff = transform.position - target.transform.position;
@@ -53,6 +55,7 @@ public abstract class AbstractEnemy : MonoBehaviour
         Instantiate(damageBillboard, markerPosition, Quaternion.identity);
         if (health < 0)
         {
+            isDead = true;
             print("DIE!!!");
             StartCoroutine(Die());
         }
