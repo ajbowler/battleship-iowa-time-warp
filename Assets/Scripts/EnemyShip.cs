@@ -35,19 +35,18 @@ public class EnemyShip : MonoBehaviour
         if (reloadTimer < 0) reloadTimer = 0;
         if (reloadTimer <= 0)
         {
-            FireWeapon();
+            GameObject ship = GameObject.Find("Player Ship");
+            Vector3 diff = transform.position - ship.transform.position;
+            if (diff.magnitude < targetRadius)
+                FireWeapon();
         }
     }
 
     private void FireWeapon()
     {
-        Vector3 diff = transform.position - target.transform.position;
-        if (diff.magnitude < targetRadius)
-        {
-            Debug.Log("Ship weapon fired");
-            GameManager.instanace.playerShip.health -= 25;
-            reloadTimer = 500;
-        }
+        Debug.Log("Ship weapon fired");
+        GameManager.instance.playerShip.health -= 25;
+        reloadTimer = 500;
     }
 
     public void TakeDamage(int damage)

@@ -36,7 +36,7 @@ public class Airplane : MonoBehaviour {
         if (difference.magnitude < targetRadius)
         {
             Debug.Log("FIRIN' WEAPON!");
-            GameManager.instanace.playerShip.health -= 25;
+            GameManager.instance.playerShip.health -= 25;
             reloadTimer = 500;
         }
     }

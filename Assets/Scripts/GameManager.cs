@@ -7,16 +7,16 @@ public class GameManager : MonoBehaviour {
     public PlayerShip playerShip;
     public Image healthBar;
     public float damageMultiplier;
-    public static GameManager instanace = null;
+    public static GameManager instance = null;
 
     private float reloadTimer;
 
     void Awake()
     {
-        if(instanace == null)
+        if(instance == null)
         {
-            instanace = this;
-        }else if(instanace != this)
+            instance = this;
+        }else if(instance != this)
         {
             Destroy(gameObject);
         }
