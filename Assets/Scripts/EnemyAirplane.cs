@@ -7,7 +7,7 @@ public class EnemyAirplane : AbstractEnemy {
 	
 	protected override void Update()
     {
-        transform.Translate(gameObject.transform.forward * planeSpeed);
+        transform.Translate(gameObject.transform.forward * planeSpeed * Time.deltaTime);
         base.Update();
 	}
 }
