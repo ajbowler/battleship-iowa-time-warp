@@ -8,22 +8,34 @@ public class GameManager : MonoBehaviour {
     public Image healthBar;
     public float damageMultiplier;
 
+    private float reloadTimer;
+
+    void Start()
+    {
+        reloadTimer = 0;
+    }
+
     void Update()
     {
+        reloadTimer -= (Time.deltaTime * 1000);
+        if (reloadTimer < 0) reloadTimer = 0;
+
         UpdateHealth();
 
         if (Input.GetMouseButtonDown(0))
         {
-            RaycastHit hit;
-            Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
-            if (Physics.Raycast(ray, out hit, 1000))
+            if (reloadTimer > 0) Debug.Log("Reloading!");
+            else
             {
-                EnemyShip enemyShip = hit.transform.gameObject.GetComponent<EnemyShip>();
-                if (enemyShip != null)
-                    FireOnEnemyShip(enemyShip);
+                RaycastHit hit;
+                Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+                if (Physics.Raycast(ray, out hit, 1000))
+                {
+                    EnemyShip enemyShip = hit.transform.gameObject.GetComponent<EnemyShip>();
+                    if (enemyShip != null)
+                        FireOnEnemyShip(enemyShip);
+                }
             }
-
-
         }
     }
 
@@ -42,6 +54,7 @@ public class GameManager : MonoBehaviour {
         else Debug.Log("Miss!");
 
         enemyShip.health -= damageDealt;
+        reloadTimer = 300;
         if (enemyShip.health < 0)
             Destroy(enemyShip.gameObject);
     }
