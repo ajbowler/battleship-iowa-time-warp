@@ -44,10 +44,10 @@ public class GameManager : MonoBehaviour {
                 Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
                 if (Physics.Raycast(ray, out hit, 1000))
                 {
-                    EnemyShip enemyShip = hit.transform.gameObject.GetComponent<EnemyShip>();
-                    if (enemyShip != null)
+                    AbstractEnemy enemy = hit.transform.gameObject.GetComponent<AbstractEnemy>();
+                    if (enemy != null)
                     {
-                        playerShip.FireOnEnemyShip(enemyShip);
+                        playerShip.FireOnEnemy(enemy);
                         reloadTimer = 300.0f;
                     }
                 }

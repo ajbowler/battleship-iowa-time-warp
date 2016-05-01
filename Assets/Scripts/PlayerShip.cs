@@ -43,20 +43,20 @@ public class PlayerShip : MonoBehaviour {
         transform.rotation = Quaternion.Lerp(transform.rotation, rotateTo, Time.deltaTime);
 	}
 
-    public void FireOnEnemyShip(EnemyShip enemyShip)
+    public void FireOnEnemy(AbstractEnemy enemy)
     {
         GetComponents<AudioSource>()[0].Play();
-        Vector3 distance = transform.position - enemyShip.transform.position;
+        Vector3 distance = transform.position - enemy.transform.position;
         float distanceMagnitude = Mathf.Abs(distance.magnitude);
 
         int damageDealt = CalculateDamage(distanceMagnitude);
 
-        enemyShip.TakeDamage(damageDealt);
-        enemyShip.health -= damageDealt;
-        if (enemyShip.health < 0)
+        enemy.TakeDamage(damageDealt);
+        enemy.health -= damageDealt;
+        if (enemy.health < 0)
         {
             GetComponents<AudioSource>()[1].Play();
-            Destroy(enemyShip.gameObject);
+            Destroy(enemy.gameObject);
         }
     }
 
