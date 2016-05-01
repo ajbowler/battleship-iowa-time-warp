@@ -6,11 +6,11 @@ public abstract class AbstractEnemy : MonoBehaviour
     public float health;
     public float baseDamage;
     public float reloadTime;
-
     public float targetRadius;
 
     public BillboardHit damageBillboard;
     public Texture[] hitMarkers;
+    public Detonator explosion;
 
     protected string targetName;
     protected Rigidbody body;
@@ -63,6 +63,7 @@ public abstract class AbstractEnemy : MonoBehaviour
 
     private IEnumerator Die()
     {
+        Instantiate(explosion, transform.position, Quaternion.identity);
         Rigidbody body = GetComponent<Rigidbody>();
         body.useGravity = true;
         print("Gravity");
