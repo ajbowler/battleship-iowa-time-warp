@@ -6,6 +6,8 @@ public class PlayerShip : MonoBehaviour {
     public float forwardSpeed;
     public float lateralSpeed;
     public float turnSpeed;
+    public float baseDamage;
+    public float health;
 
     private Vector3 moveTo;
     private Quaternion rotateTo;
